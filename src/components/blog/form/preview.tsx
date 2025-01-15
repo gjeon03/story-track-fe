@@ -89,6 +89,11 @@ export default function Preview() {
     setValue(aiContent[aiContentIndex as number].title);
   }, [aiContent]);
 
+  useEffect(() => {
+    console.log("iaContent", aiContent);
+    setValue(aiContent[aiContentIndex as number].title);
+  }, [aiContent]);
+
   const autoResize = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = e.target;
     textarea.style.height = "36px"; // 초기 높이 설정
