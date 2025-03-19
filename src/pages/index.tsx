@@ -59,17 +59,15 @@ export default function Home() {
             </div>
           }
         >
-          {processedData
-            ?.reverse()
-            .map((post, index) => (
-              <Card
-                key={index}
-                id={post.postId}
-                title={post.title}
-                description={post.des}
-                src={post.src}
-              />
-            ))}
+          {processedData?.map((post, index) => (
+            <Card
+              key={index}
+              id={post.postId}
+              title={post.title}
+              description={post.des}
+              src={post.src}
+            />
+          ))}
         </Drawer>
       </div>
     </div>
