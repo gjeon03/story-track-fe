@@ -7,6 +7,12 @@
 
 ---
 
+## 🔗 배포 링크
+
+👉 [**StoryTrack 데모 보기**](https://temp-project-rouge.vercel.app/)
+
+---
+
 ## ✨ 프로젝트 개요
 
 - 사용자가 **이미지와 간단한 코멘트만 업로드**하면,
@@ -50,8 +56,8 @@
 
 ## 🛠️ 기술 스택
 
-- **Frontend:** `Next.js`, `TypeScript`, `React Query`
-- **APIs:** `Google Map API`, `Web Audio API`, `Web Speech API`
+- **Frontend:** `Next.js`, `TypeScript`, `React Query`, `Tailwind CSS`
+- **APIs:** `Google Map API`, `Web Audio API`, `Web Speech API`, `Gemini API`
 - **Local Storage:** `IndexedDB`
 - **PWA:** `Next.js PWA` 적용
 
