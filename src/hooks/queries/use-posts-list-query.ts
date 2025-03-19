@@ -1,7 +1,5 @@
 import { useQuery } from "react-query";
-import { DefaultResponse } from "../utils/fetcher";
 import { markdownToPlainText } from "@/utils/markdown-to-plain-text";
-import { generateMockData } from "@/mocks/data/list";
 import { getBlogsFromIndexedDB } from "@/utils/indexed-db";
 import { BlogPost } from "../mutations/use-blog-post-mutation";
 

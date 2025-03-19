@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import { BASE_URL, DefaultResponse } from "../utils/fetcher";
 import { getBlogPostById } from "@/utils/indexed-db";
 
 interface Image {
