@@ -43,3 +43,7 @@ next-env.d.ts
 # IDE
 .idea
 .vscode
+
+.env
+.env.development
+.env.production
