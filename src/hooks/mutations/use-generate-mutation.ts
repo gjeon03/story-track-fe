@@ -1,5 +1,4 @@
 import { useMutation, UseMutationOptions } from "react-query";
-import { DefaultResponse } from "../utils/fetcher";
 import { AiContentInfo } from "@/context/form-context";
 import { generateParagraph } from "@/mocks/data/generate";
 

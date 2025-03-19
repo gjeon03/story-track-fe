@@ -1,10 +1,5 @@
 import { useMutation, UseMutationOptions } from "react-query";
-import { BASE_URL } from "../utils/fetcher";
 import { saveBlogPost } from "@/utils/indexed-db";
-
-interface BlogPostResponse {
-  postId: string;
-}
 
 export interface ImageSaveInfo {
   fileName: string;
@@ -32,12 +27,7 @@ const useBlogPostMutation = (
     mutationFn: async (data: BlogPost) => {
       const formData = new FormData();
 
-      data.files.forEach((file, index) => {
-        console.log(`files[${index}]`, file);
-        formData.append(`files`, file);
-      });
-
-      // 텍스트 필드 추가
+      /*// 텍스트 필드 추가
       formData.append("title", data.title);
       formData.append("ogText", data.ogText);
       formData.append("aiGenText", data.aiGenText);
@@ -46,10 +36,10 @@ const useBlogPostMutation = (
       data.imgSaveList.forEach((image, index) => {
         formData.append(`imgSaveList[${index}].fileName`, image.fileName);
         formData.append(`imgSaveList[${index}].geoLat`, image.geoLat);
-        formData.append(`imgSaveList[${index}].geoLong`, String(Number(image.geoLong) * -1)); // -1을 곱한이유는 경도의 W에 대응하기위해
+        formData.append(`imgSaveList[${index}].geoLong`, image.geoLong);
         formData.append(`imgSaveList[${index}].imgDtm`, image.imgDtm);
         formData.append(`imgSaveList[${index}].thumbYn`, image.thumbYn);
-      });
+      });*/
 
       const blogPost = {
         title: data.title,
@@ -67,8 +57,6 @@ const useBlogPostMutation = (
         console.error("Failed to save blog post to IndexedDB:", err);
       }
 
-      if (!response.ok) {
-        throw new Error("Failed to upload blog post");
       // 파일 처리 (현재는 IndexedDB에 저장하지 않음)
       if (data.files && data.files.length > 0) {
         console.log("Files provided:", data.files);
@@ -76,7 +64,6 @@ const useBlogPostMutation = (
         console.error("No files found in the 'files' array");
       }
 
-      return response.json();
       // IndexedDB에 저장된 id 반환
       return Promise.resolve(savedId as number);
 
