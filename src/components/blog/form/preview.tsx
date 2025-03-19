@@ -42,6 +42,9 @@ export default function Preview() {
     if (aiContent && images && aiContentIndex !== undefined) {
       const data = aiContent[aiContentIndex];
       const imagesData = images?.map((image) => image.previewUrl) || [];
+
+      console.log("title", data.title);
+
       setContentData({
         title: data.title,
         description: data.content,
@@ -75,6 +78,11 @@ export default function Preview() {
   //     setHtmlContent(htmlContent);
   //   })();
   // }, [contentData]);
+
+  useEffect(() => {
+    console.log("iaContent", aiContent);
+    setValue(aiContent[aiContentIndex as number].title);
+  }, [aiContent]);
 
   useEffect(() => {
     console.log("iaContent", aiContent);

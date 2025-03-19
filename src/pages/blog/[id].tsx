@@ -107,16 +107,18 @@ export default function Detail() {
           </div>
           <div className="flex flex-col gap-5 pt-4">
             <div className="flex flex-col gap-3">
-              {data.blogImgList.map((img, index) => (
-                <Image
-                  key={index}
-                  src={img.fileName}
-                  width={350}
-                  height={350}
-                  alt="image"
-                  className="aspect-square w-full object-cover"
-                />
-              ))}
+              {data.imgSaveList.map((img, index) =>
+                img.imgStream ? (
+                  <Image
+                    key={index}
+                    src={img.imgStream}
+                    width={350}
+                    height={350}
+                    alt="image"
+                    className="aspect-square w-full object-cover"
+                  />
+                ) : null,
+              )}
             </div>
             <div className="prose">
               <p

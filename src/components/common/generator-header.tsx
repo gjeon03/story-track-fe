@@ -63,10 +63,13 @@ export default function GeneratorHeader() {
         geoLong: image.lon.toString(),
         imgDtm: image.createDate,
         thumbYn: image.active ? "Y" : "N",
+        imgStream: image.previewUrl,
       }));
       const aiContentResult = aiContent[aiContentIndex];
       const aiGenText = aiContentResult.content;
       const title = aiContentResult.title;
+
+      console.log("title:", title);
       // const files = images
       //   .flatMap(imageArray => imageArray) // 중첩 배열 풀기
       //   .filter(image => image.previewUrl) // previewUrl 있는 것만 필터링
