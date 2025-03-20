@@ -9,7 +9,7 @@
 
 ## 🔗 배포 링크
 
-👉 [**StoryTrack 데모 보기**](https://temp-project-rouge.vercel.app/)
+👉 [**StoryTrack 데모 보기**](https://story-track-fe.vercel.app/)
 
 ---
 
