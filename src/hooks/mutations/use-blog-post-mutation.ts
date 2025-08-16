@@ -52,7 +52,6 @@ const useBlogPostMutation = (
       let savedId: number | null = null;
       try {
         savedId = await saveBlogPost(blogPost); // IndexedDB에 저장
-        console.log("Blog post saved to IndexedDB:", blogPost);
       } catch (err) {
         console.error("Failed to save blog post to IndexedDB:", err);
       }

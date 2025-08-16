@@ -5,8 +5,6 @@ export const postGenerate = http.post(
   async ({ request }) => {
     const generate = await request.json();
 
-    console.log("generate request", generate);
-
     return HttpResponse.json(
       {
         genRes1:

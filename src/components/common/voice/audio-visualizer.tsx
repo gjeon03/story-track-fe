@@ -123,7 +123,6 @@ const AudioVisualizer = ({ isRecording: recordingAction, onClose }: Props) => {
         const transcript = Array.from(event.results)
           .map((result) => result[0].transcript)
           .join("");
-        console.log("Transcript:", transcript);
         updateDescription(transcript);
       };
 

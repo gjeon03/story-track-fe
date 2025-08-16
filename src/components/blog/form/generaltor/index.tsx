@@ -39,28 +39,12 @@ export default function DescriptionForm() {
   } = useFormContext();
   const recorderRef = useRef<HTMLDivElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  // const [selected, setSelected] = useState<number | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [isNotified, setIsNotified] = useState(true);
   const { mutate } = useGenerateMutation({
     onSuccess: (data) => {
       setIsLoading(false);
-      console.log("data", data);
       setAiContent([data.genRes1, data.genRes2, data.genRes3]);
-      // setAiContent([
-      //   {
-      //     title: "",
-      //     content: data.genRes1,
-      //   },
-      //   {
-      //     title: "",
-      //     content: data.genRes2,
-      //   },
-      //   {
-      //     title: "",
-      //     content: data.genRes3,
-      //   },
-      // ]);
     },
     onError: () => {
       setIsLoading(false);

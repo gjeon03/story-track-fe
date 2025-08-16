@@ -53,10 +53,7 @@ export default function GeneratorHeader() {
   const handlePost = () => {
     setIsLoading(true);
 
-    console.log("images", images);
-
     if (images && aiContentIndex !== undefined) {
-      console.log("aiContentIndex", aiContentIndex);
       const imgSaveList: ImageSaveInfo[] = images.map((image) => ({
         fileName: image.fileName,
         geoLat: image.lat.toString(),
@@ -69,15 +66,12 @@ export default function GeneratorHeader() {
       const aiGenText = aiContentResult.content;
       const title = aiContentResult.title;
 
-      console.log("title:", title);
       // const files = images
       //   .flatMap(imageArray => imageArray) // 중첩 배열 풀기
       //   .filter(image => image.previewUrl) // previewUrl 있는 것만 필터링
       //   .map(image => image.previewUrl);
 
       const files = images.map((image) => image.file);
-
-      console.log("여기서파일추가?", files);
 
       mutate({ ogText: description, aiGenText, title, imgSaveList, files });
     }

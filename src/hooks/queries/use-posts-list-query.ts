@@ -27,14 +27,12 @@ export interface Blog {
 }
 
 const usePostsListQuery = () => {
-  console.log("usePostsListQuery");
   return useQuery<BlogPost[] | []>({
     queryKey: ["blog-list"],
     queryFn: async () => {
       // 1. IndexedDB에서 데이터 가져오기
       const localBlogs = await getBlogsFromIndexedDB();
       if (localBlogs.length > 0) {
-        console.log("Loaded blogs from IndexedDB");
         return localBlogs;
       }
       return [];
@@ -56,7 +54,6 @@ const usePostsListQuery = () => {
 
 // Google Maps LatLngLiteral 타입 변환 함수
 const mapToLatLng = (blogs?: BlogPost[]): google.maps.LatLngLiteral[] => {
-  console.log("data123: ", blogs);
   // return (
   //   blogs?.map((blog) => ({
   //     lat: parseFloat(blog.thumbHash.thumbGeoLat),

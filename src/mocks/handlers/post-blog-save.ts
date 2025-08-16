@@ -31,7 +31,6 @@ export const postBlogSave = http.post(
       });
     }
 
-    // 디버깅 출력
     console.log("Parsed FormData:", data);
 
     return HttpResponse.json(1, { status: 201 });

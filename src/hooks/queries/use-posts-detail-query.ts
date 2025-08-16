@@ -33,7 +33,6 @@ const usePostsDetailQuery = (id?: string) => {
       // IndexedDB에서 데이터 검색
       const localData = await getBlogPostById(Number(id));
 
-      console.log("Data fetched from IndexedDB:", localData);
       return Promise.resolve(localData); // 로컬 데이터 반환
 
       // IndexedDB에 데이터가 없으면 네트워크 요청
