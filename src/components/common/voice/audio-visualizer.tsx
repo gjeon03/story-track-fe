@@ -1,4 +1,5 @@
 import { useFormContext } from "@/context/form-context";
+import { useLanguage } from "@/context/language-context";
 import { useState, useEffect, useRef } from "react";
 
 const TOTAL_BARS = 29;
@@ -47,6 +48,16 @@ type SpeechRecognitionLanguage =
   | "he-IL" // 히브리어 (이스라엘)
   | "af-ZA"; // 아프리칸스어 (남아프리카공화국)
 
+// 언어 인덱스를 Speech Recognition 언어로 매핑
+const LANGUAGE_MAP: SpeechRecognitionLanguage[] = [
+  "ko-KR", // 한국어
+  "en-US", // English
+  "ja-JP", // 日本語
+  "zh-CN", // 中文
+  "es-ES", // Español
+  "fr-FR", // Français
+];
+
 interface Props {
   isRecording: boolean;
   onClose?: () => void;
@@ -54,6 +65,7 @@ interface Props {
 
 const AudioVisualizer = ({ isRecording: recordingAction, onClose }: Props) => {
   const { updateDescription } = useFormContext();
+  const { voiceLanguageIndex } = useLanguage();
   const [isRecording, setIsRecording] = useState(false);
   const [visualData, setVisualData] = useState<number[]>(
     new Array(TOTAL_BARS).fill(0),
@@ -117,7 +129,7 @@ const AudioVisualizer = ({ isRecording: recordingAction, onClose }: Props) => {
       const recognition = new SpeechRecognition();
       recognition.continuous = true;
       recognition.interimResults = true;
-      recognition.lang = "en-US" as SpeechRecognitionLanguage;
+      recognition.lang = LANGUAGE_MAP[voiceLanguageIndex] || "ko-KR";
 
       recognition.onresult = (event: SpeechRecognitionEvent) => {
         const transcript = Array.from(event.results)
