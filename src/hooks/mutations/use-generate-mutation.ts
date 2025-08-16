@@ -22,6 +22,7 @@ export interface GenerateImageInfo {
 interface GenerateMutation {
   imgInfo: GenerateImageInfo[];
   ogText: string;
+  languageIndex?: number;
 }
 
 const useGenerateMutation = (

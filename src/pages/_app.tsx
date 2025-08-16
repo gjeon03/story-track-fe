@@ -6,6 +6,7 @@ import {
   QueryClientConfig,
   QueryClientProvider,
 } from "react-query";
+import { LanguageProvider } from "@/context/language-context";
 
 if (
   process.env.NODE_ENV === "development" &&
@@ -27,9 +28,11 @@ const queryClient = new QueryClient(queryClientConfig);
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <LanguageProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }

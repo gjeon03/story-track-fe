@@ -1,27 +1,26 @@
 import Textarea from "@/components/common/textarea";
 import Toggle from "@/components/common/toggle";
 import { useFormContext } from "@/context/form-context";
-import { ChangeEvent, useState, useEffect } from "react";
+import { useLanguage } from "@/context/language-context";
+import { ChangeEvent, useState } from "react";
 
 export default function Setting() {
   const { activeComponentKey, setActiveComponentKey } = useFormContext();
+  const { voiceLanguageIndex, blogLanguageIndex, setVoiceLanguageIndex, setBlogLanguageIndex } = useLanguage();
   const [value, setValue] = useState<string>("");
   const [active, setActive] = useState<number>();
   const [resetFlag, setResetFlag] = useState("false");
-  const [voiceLanguage, setVoiceLanguage] = useState<number>(0); // 0 = 한국어 (기본값)
 
-  // 설정 로드
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('voiceToTextLanguage');
-    if (savedLanguage !== null) {
-      setVoiceLanguage(parseInt(savedLanguage));
-    }
-  }, []);
-
-  // 언어 변경 시 저장
-  const handleLanguageChange = (index: number) => {
-    setVoiceLanguage(index);
+  // Voice-to-Text 언어 변경
+  const handleVoiceLanguageChange = (index: number) => {
+    setVoiceLanguageIndex(index);
     localStorage.setItem('voiceToTextLanguage', index.toString());
+  };
+
+  // Blog Generation 언어 변경
+  const handleBlogLanguageChange = (index: number) => {
+    setBlogLanguageIndex(index);
+    localStorage.setItem('blogGenerationLanguage', index.toString());
   };
 
   const handleApply = () => {
@@ -89,8 +88,29 @@ export default function Setting() {
           ].map((language, index) => (
             <div
               key={index}
-              className={`rounded-lg border border-[#454545] bg-[#262626] px-3 py-2 text-[14px] leading-5 tracking-tight ${voiceLanguage === index ? "bg-key-primary text-[#262626]" : "bg-[#262626] text-white-primary"}`}
-              onClick={() => handleLanguageChange(index)}
+              className={`rounded-lg border border-[#454545] bg-[#262626] px-3 py-2 text-[14px] leading-5 tracking-tight ${voiceLanguageIndex === index ? "bg-key-primary text-[#262626]" : "bg-[#262626] text-white-primary"}`}
+              onClick={() => handleVoiceLanguageChange(index)}
+            >
+              {language}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-col gap-3 p-4">
+        <h5 className={titleStyle}>Blog Generation Language</h5>
+        <div className="inline-flex w-full flex-wrap gap-3">
+          {[
+            "한국어",
+            "English",
+            "日本語",
+            "中文",
+            "Español",
+            "Français",
+          ].map((language, index) => (
+            <div
+              key={index}
+              className={`rounded-lg border border-[#454545] bg-[#262626] px-3 py-2 text-[14px] leading-5 tracking-tight ${blogLanguageIndex === index ? "bg-key-primary text-[#262626]" : "bg-[#262626] text-white-primary"}`}
+              onClick={() => handleBlogLanguageChange(index)}
             >
               {language}
             </div>
@@ -103,7 +123,8 @@ export default function Setting() {
           onClick={() => {
             setValue("");
             setActive(undefined);
-            handleLanguageChange(0); // 리셋 시 한국어로 초기화
+            handleVoiceLanguageChange(0); // Voice-to-Text 한국어로 초기화
+            handleBlogLanguageChange(0); // Blog Generation 한국어로 초기화
             setResetFlag(resetFlag === "false" ? "true" : "false");
           }}
         >

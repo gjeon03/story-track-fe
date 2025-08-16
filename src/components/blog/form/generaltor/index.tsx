@@ -4,6 +4,7 @@ import Loading from "@/components/common/loading";
 import AiContent from "./ai-content";
 import { FaCheck } from "react-icons/fa";
 import { AiContentInfo, useFormContext } from "@/context/form-context";
+import { useLanguage } from "@/context/language-context";
 import MicrophoneIcon from "@/components/icons/microphone";
 import MagicIcon from "@/components/icons/magic";
 import VoiceRecorder from "@/components/common/voice/voice-recorder";
@@ -37,6 +38,7 @@ export default function DescriptionForm() {
     aiContentIndex,
     setAiContentIndex,
   } = useFormContext();
+  const { blogLanguageIndex } = useLanguage();
   const recorderRef = useRef<HTMLDivElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
@@ -81,7 +83,7 @@ export default function DescriptionForm() {
       imgDtm: new Date(image.createDate).toISOString(),
     }));
 
-    mutate({ ogText: description, imgInfo });
+    mutate({ ogText: description, imgInfo, languageIndex: blogLanguageIndex });
   };
 
   const handleSubmit = () => {
