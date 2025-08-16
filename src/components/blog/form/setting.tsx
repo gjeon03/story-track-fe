@@ -1,13 +1,28 @@
 import Textarea from "@/components/common/textarea";
 import Toggle from "@/components/common/toggle";
 import { useFormContext } from "@/context/form-context";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 
 export default function Setting() {
   const { activeComponentKey, setActiveComponentKey } = useFormContext();
   const [value, setValue] = useState<string>("");
   const [active, setActive] = useState<number>();
   const [resetFlag, setResetFlag] = useState("false");
+  const [voiceLanguage, setVoiceLanguage] = useState<number>(0); // 0 = 한국어 (기본값)
+
+  // 설정 로드
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('voiceToTextLanguage');
+    if (savedLanguage !== null) {
+      setVoiceLanguage(parseInt(savedLanguage));
+    }
+  }, []);
+
+  // 언어 변경 시 저장
+  const handleLanguageChange = (index: number) => {
+    setVoiceLanguage(index);
+    localStorage.setItem('voiceToTextLanguage', index.toString());
+  };
 
   const handleApply = () => {
     if (activeComponentKey === "setting") {
@@ -61,12 +76,34 @@ export default function Setting() {
           <Toggle text={"Include emoji"} />
         </div>
       </div>
+      <div className="flex flex-col gap-3 p-4">
+        <h5 className={titleStyle}>Voice to Text Language</h5>
+        <div className="inline-flex w-full flex-wrap gap-3">
+          {[
+            "한국어",
+            "English",
+            "日本語",
+            "中文",
+            "Español",
+            "Français",
+          ].map((language, index) => (
+            <div
+              key={index}
+              className={`rounded-lg border border-[#454545] bg-[#262626] px-3 py-2 text-[14px] leading-5 tracking-tight ${voiceLanguage === index ? "bg-key-primary text-[#262626]" : "bg-[#262626] text-white-primary"}`}
+              onClick={() => handleLanguageChange(index)}
+            >
+              {language}
+            </div>
+          ))}
+        </div>
+      </div>
       <div className="fixed bottom-0 left-0 flex w-full gap-5 bg-black-primary p-4 text-[14px]">
         <button
           className="h-[46px] flex-1 rounded-lg bg-[#333333] leading-5 tracking-tight text-white-primary"
           onClick={() => {
             setValue("");
             setActive(undefined);
+            handleLanguageChange(0); // 리셋 시 한국어로 초기화
             setResetFlag(resetFlag === "false" ? "true" : "false");
           }}
         >
