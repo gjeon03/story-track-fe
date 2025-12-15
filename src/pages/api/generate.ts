@@ -35,7 +35,7 @@ export default async function handler(
   }
 
   const generativeAi = new GoogleGenerativeAI(apiKeyGenAI);
-  const model = generativeAi.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = generativeAi.getGenerativeModel({ model: "gemini-2.5-flash" });
 
   try {
     const sortedImgInfo = imgInfo.sort(
