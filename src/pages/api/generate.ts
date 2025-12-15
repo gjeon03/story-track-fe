@@ -35,7 +35,24 @@ export default async function handler(
   }
 
   const generativeAi = new GoogleGenerativeAI(apiKeyGenAI);
-  const model = generativeAi.getGenerativeModel({ model: "gemini-2.5-flash" });
+  const model = generativeAi.getGenerativeModel({
+    model: "gemini-2.0-flash-lite",
+    generationConfig: {
+      responseMimeType: "application/json",
+      responseSchema: {
+        type: "OBJECT" as any,
+        properties: {
+          title: {
+            type: "STRING" as any,
+          },
+          content: {
+            type: "STRING" as any,
+          },
+        },
+        required: ["title", "content"],
+      },
+    },
+  });
 
   try {
     const sortedImgInfo = imgInfo.sort(
@@ -85,7 +102,8 @@ export default async function handler(
 
       console.log(`Generated content for ${type}:`, text);
       try {
-        const cleanedText = text.replace(/```json|```/g, "").trim();
+        const cleanedText = text.replace(/```json\n?|```\n?/g, "").trim();
+
         const json = JSON.parse(cleanedText);
 
         return {
@@ -94,6 +112,7 @@ export default async function handler(
         } as GenerateResponseItem;
       } catch (err) {
         console.error("Failed to parse JSON:", err);
+        console.error("Raw text:", text);
         return {
           title: `${type} Blog Post`,
           content: "Failed to generate valid JSON content.",
